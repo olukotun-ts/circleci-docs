@@ -74,7 +74,7 @@ jobs:
 The example below shows how you can build and deploy a Docker image for our [demo docker project](https://github.com/CircleCI-Public/circleci-demo-docker) using the Docker executor, with remote Docker:
 
 <!-- markdownlint-disable MD046 -->
-{% highlight yaml %}
+```yaml
 version: 2.1
 jobs:
   build:
@@ -97,7 +97,7 @@ jobs:
           docker build -t CircleCI-Public/circleci-demo-docker:$TAG .
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
           docker push CircleCI-Public/circleci-demo-docker:$TAG
-{% endhighlight %}
+```
 <!-- markdownlint-enable MD046 -->
 
 **Note:** The [CircleCI convenience images](https://circleci.com/docs/2.0/circleci-images/) for the Docker executor come with the Docker CLI pre-installed. If you are using a third-party image for your primary container that doesn't already have the Docker CLI installed, then [you will need to install it](https://docs.docker.com/install/#supported-platforms) as part of your job before calling any `docker` commands.

@@ -56,8 +56,6 @@ workflows:
   my-workflow:
     jobs:
       - my-job
-
-
 ```
 
 ### Parameter syntax

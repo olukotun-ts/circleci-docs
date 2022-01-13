@@ -95,7 +95,6 @@ This is also the payload for the notification webhooks, in which case this objec
 
 ```sh
 curl -X POST https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/:build_num/retry -H "Circle-Token: <circle-token>"
-
 ```
 
 > You can retry a build with ssh by swapping “retry” with “ssh”.
@@ -141,7 +140,6 @@ curl -X POST https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/
 
 ```text
 # ...Build Data
-
 ```
 
 **`POST` Request:** This API call is only available when using a user API token. If the current user has permission to build the project, this API adds the current user's SSH public key to the authorized keys on each container running a build. This allows them to SSH to the build containers.

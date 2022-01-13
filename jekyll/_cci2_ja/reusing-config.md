@@ -57,8 +57,6 @@ workflows:
   my-workflow:
     jobs:
       - my-job
-
-
 ```
 
 ### パラメーターの構文

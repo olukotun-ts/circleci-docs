@@ -74,7 +74,7 @@ jobs:
 以下の例では、Docker Executorを使用して、リモートDockerで、[Docker のデモ プロジェクト](https://github.com/CircleCI-Public/circleci-demo-docker)の Docker イメージを構築してデプロイしています。
 
 <!-- markdownlint-disable MD046 -->
-{% highlight yaml %}
+```yaml
 version: 2.1
 jobs:
   build:
@@ -98,12 +98,12 @@ jobs:
           docker build -t CircleCI-Public/circleci-demo-docker:$TAG .
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
           docker push CircleCI-Public/circleci-demo-docker:$TAG
-{% endhighlight %}
+```
 <!-- markdownlint-enable MD046 -->
 
 **注:** Docker Executor 用の [CircleCI ビルド済み Docker イメージ](https://circleci.com/docs/2.0/circleci-images/) には、Docker CLI がプリインストールされています。 Docker CLI がインストールされていないサードパーティーのイメージをプライマリコンテナで使用する場合は、`docker` コマンドを実行する前に、ジョブの一部として [Docker CLI をインストールする必要があります。](https://docs.docker.com/install/#supported-platforms)
 
-```
+```yaml
       # Alpine ベースのイメージに APK でインストールします。
       - run:
           name: Docker クライアントのインストール
@@ -122,7 +122,7 @@ jobs:
 
 ジョブで特定の Docker バージョンが必要な場合は、`version` 属性でバージョンを設定できます。
 
-```
+```yaml
       - setup_remote_docker:
         version: 19.03.13
 ```
@@ -182,7 +182,7 @@ Consult the [Stable releases](https://download.docker.com/linux/static/stable/x8
 
 ジョブ空間からリモート Docker 内のコンテナにボリュームをマウントすること (およびその逆) は**できません**。 `docker cp` コマンドを使用して、この 2 つの環境間でファイルを転送することは可能です。 たとえば以下のように、ソース コードから設定ファイルを使用してリモート Docker でコンテナを開始します。
 
-```
+```yaml
 - run: |
     # 設定ファイルとボリュームを保持するダミー コンテナを作成します。
     docker create -v /cfg --name configs alpine:3.4 /bin/true
@@ -194,7 +194,7 @@ Consult the [Stable releases](https://download.docker.com/linux/static/stable/x8
 
 同様に、保存する必要があるアーティファクトをアプリケーションが生成する場合は、以下のようにリモート Docker からコピーできます。
 
-```
+```yaml
 run: |
   # アプリケーションとコンテナを開始します。
   # <code>--rm</code> オプションは使用しません (使用すると、終了時にコンテナが強制終了されます)。
@@ -203,7 +203,7 @@ run: |
 
 また、https://github.com/outstand/docker-dockup やバックアップおよびリストア用の同様のイメージを使って、以下の例のようにコンテナをスピンアップさせることも可能です。 `circle-dockup.yml` の設定例:
 
-```
+```yaml
 version: '2'
 services:
  bundler-cache:
@@ -220,7 +220,7 @@ services:
 次に、以下の CircleCI `.circleci/config.yml` スニペットで `bundler-cache` コンテナにデータを挿入し、バックアップを行います。
 
 {% raw %}
-``` yaml
+```yaml
 # CircleCI キャッシュから bundler-data コンテナにデータを挿入します。
 
 - restore_cache:
