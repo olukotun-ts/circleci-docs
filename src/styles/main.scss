@@ -299,8 +299,12 @@ div.align-center img{
 	}
 }
 
-/* highlightjs number block of numbers */
-table tr td.hljs-ln-numbers {
+// highlightjs number block of numbers
+table.hljs-ln {
+  margin-top: 0px;
+
+  // making line numbers not selectable
+  tr td.hljs-ln-numbers {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -312,12 +316,19 @@ table tr td.hljs-ln-numbers {
     color: #ccc;
     vertical-align: top;
     padding-right: 5px;
-	white-space: nowrap;
-}
+	  white-space: nowrap;
+  }
 
-/* highlightjs number block of code */
-table tr td.hljs-ln-code {
+  // adding padding to the left of the numbers
+  tr td.hljs-ln-code {
     padding-left: 10px;
+  }
+
+  // remove last line because of plugin bug
+  // https://github.com/wcoder/highlightjs-line-numbers.js/issues/80
+  tbody tr:last-child {
+    display: none;
+  }
 }
 
 // Homepage
