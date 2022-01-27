@@ -1,4 +1,4 @@
-.row, .control, .treatment, .loading-deferred {
+.control, .treatment, .loading-deferred {
     display: none;
 
     a.no-external-icon.col-sm-12 {
@@ -144,7 +144,7 @@
     }
 
     @media(max-width: $screen-sm) {
-        flex-direction: column; 
+        flex-direction: column;
 
         .card {
             width: 100%;
