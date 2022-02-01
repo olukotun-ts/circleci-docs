@@ -16,6 +16,7 @@ window.OptimizelyClient = new services.OptimizelyClient();
 
 import site from './site';
 
+services.lang.init();
 services.rum.init();
 // Temporary service to check if user dark mode preferences
 trackDarkModePreference();
@@ -27,7 +28,6 @@ $(() => {
   services.highlightjsBadge.init();
   services.progressbar.init();
   services.sectionShareButton.init();
-  services.lang.init();
 
   // Boolean whether or not URL is in Guided Tour experiment
   const isGatedPath =
