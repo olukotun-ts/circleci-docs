@@ -356,14 +356,8 @@ body.homepage{
 	}
 }
 
-table {
-  tr {
-    th,td {
-      code {
-        white-space: nowrap !important;
-      }
-    }
-  }
+table tr th:first-of-type code, table tr td:first-of-type code {
+  white-space: nowrap !important;
 }
 
 code {
