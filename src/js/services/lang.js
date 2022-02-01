@@ -9,15 +9,15 @@ const languages = {
   en: {
     name: 'English',
     url: 'docs/',
-    id: 'globalNavLangEng',
-    domEl: getElById('globalNavLangEng'),
+    id: 'globalNavLangEnglish',
+    domEl: getElById('globalNavLangEnglish'),
   },
   ja: {
     name: '日本語',
     url: 'docs/ja/',
-    id: 'globalNavLangJA',
-    element: 'globalNavLangJA',
-    domEl: getElById('globalNavLangJA'),
+    id: 'globalNavLangJapanese',
+    element: 'globalNavLangJapanese',
+    domEl: getElById('globalNavLangJapanese'),
   },
 };
 
