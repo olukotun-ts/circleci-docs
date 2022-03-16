@@ -81,7 +81,7 @@ const explore = async () => {
       let file = lines[0].filePath.replace(repoPath, '');
       log(`${file} has ${lines.length} snippets`);
 
-      // have to count how many snippits you remove to know how many you have
+      // have to count how many snippits need remove to know how many you have
       let numberOfValidSnippits = 0;
       for (let i = 0; i < lines.length; i++) {
         let hit = lines[i];
@@ -92,7 +92,7 @@ const explore = async () => {
           i++;
         }
       }
-console.log('numberOfValidSnippits', numberOfValidSnippits)
+
       for (let i = 0; i < lines.length; i++) {
         let hit = lines[i];
         let isSingleLineCode = (hit.line.match(/```/g) || []).length === 2;
