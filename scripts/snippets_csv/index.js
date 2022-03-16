@@ -13,8 +13,10 @@ const log = (message) => {
   console.log('=>', message);
 };
 
-const addToData = async (filePath, lineStart, lineStop) => {
+const addToData = async (filePath, lineStart, lineStop, numSnippits) => {
   let info = {
+    pageName: (filePath.substring(filePath.lastIndexOf("/") + 1, filePath.length - 1)).split('.')[0],
+    numSnippits: numSnippits,
     file: filePath,
     lines: `${lineStart}-${lineStop}`,
     snippetSize: lineStop - lineStart - 1,
@@ -49,6 +51,7 @@ const addToData = async (filePath, lineStart, lineStop) => {
       lastUpdatedBy: logData[0].authorName,
       updatesCount: logData.length,
       ageInMonths,
+      linkToDocs: 'https://circleci.com/docs/2.0/'
     };
   }
 
@@ -75,17 +78,36 @@ const explore = async () => {
   results.forEach((lines) => {
     if (lines.length) {
       // cleanup file path
-      const file = lines[0].filePath.replace(repoPath, '');
+      let file = lines[0].filePath.replace(repoPath, '');
       log(`${file} has ${lines.length} snippets`);
 
+      // have to count how many snippits you remove to know how many you have
+      let numberOfValidSnippits = 0;
       for (let i = 0; i < lines.length; i++) {
-        const hit = lines[i];
-        const isSingleLineCode = (hit.line.match(/```/g) || []).length === 2;
-
-        if (isSingleLineCode) {
-          promises.push(addToData(file, hit.lineNo, hit.lineNo));
+        let hit = lines[i];
+        let skip = (hit.line.match(/```shell/g) || []).length === 1;
+        if(!skip) {
+          numberOfValidSnippits++;
         } else {
-          promises.push(addToData(file, hit.lineNo, lines[i + 1].lineNo));
+          i++;
+        }
+      }
+console.log('numberOfValidSnippits', numberOfValidSnippits)
+      for (let i = 0; i < lines.length; i++) {
+        let hit = lines[i];
+        let isSingleLineCode = (hit.line.match(/```/g) || []).length === 2;
+        // Don't record snippits that are CLI/API commands and responses
+        let skip = (hit.line.match(/```shell/g) || []).length === 1;
+        
+        if(!skip) {
+          if (isSingleLineCode) {
+            promises.push(addToData(file, hit.lineNo, hit.lineNo, numberOfValidSnippits));
+          } else {
+            promises.push(addToData(file, hit.lineNo, lines[i + 1].lineNo, numberOfValidSnippits));
+            i++;
+          }
+        } else {
+          // If you are skipping need to increment past the end of shell script ```
           i++;
         }
       }
