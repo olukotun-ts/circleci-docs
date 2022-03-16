@@ -13,10 +13,10 @@ const log = (message) => {
   console.log('=>', message);
 };
 
-const addToData = async (filePath, lineStart, lineStop, numSnippits) => {
+const addToData = async (filePath, lineStart, lineStop, numSnippets) => {
   let info = {
     pageName: (filePath.substring(filePath.lastIndexOf("/") + 1, filePath.length - 1)).split('.')[0],
-    numSnippits: numSnippits,
+    numSnippets: numSnippets,
     file: filePath,
     lines: `${lineStart}-${lineStop}`,
     snippetSize: lineStop - lineStart - 1,
